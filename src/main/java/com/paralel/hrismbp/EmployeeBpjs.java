@@ -10,6 +10,7 @@ public class EmployeeBpjs {
     private final StringProperty jabatan = new SimpleStringProperty();
     private final DoubleProperty gapok = new SimpleDoubleProperty();
     private final BooleanProperty jpActive = new SimpleBooleanProperty(true);
+    private final StringProperty noKtp = new SimpleStringProperty("-");
 
     public EmployeeBpjs(int no, String namaProject, String lokasiProject, String nama, String jabatan, double gapok, boolean jpActive) {
         setNo(no);
@@ -20,11 +21,25 @@ public class EmployeeBpjs {
         setGapok(gapok);
         setJpActive(jpActive);
     }
-
     // --- Properties & Getters/Setters ---
-    public IntegerProperty noProperty() { return no; }
+    /*public IntegerProperty noProperty() { return no; }
     public int getNo() { return no.get(); }
-    public void setNo(int no) { this.no.set(no); }
+    public void setNo(int no) { this.no.set(no); }*/
+    public IntegerProperty noProperty() {
+        return no;
+    }
+
+    public int getNo() {
+        return no.get();
+    }
+
+    public void setNo(int no) {
+        this.no.set(no);
+    }
+
+    public StringProperty noKtpProperty() { return noKtp; }
+    public String getNoKtp() { return noKtp.get(); }
+    public void setNoKtp(String noKtp) { this.noKtp.set(noKtp); }
 
     public StringProperty namaProjectProperty() { return namaProject; }
     public String getNamaProject() { return namaProject.get(); }

@@ -40,6 +40,21 @@ public class Database {
         }
     }
 
+    /*public static String getNikByEmployeeName(String fullName) {
+        String sql = "SELECT nik FROM employees WHERE LOWER(full_name) = LOWER(?)";
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, fullName.trim());
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("nik");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "-";
+    }*/
+
     public static boolean checkAdminPassword(String currentPassword) {
         // DI-FIX: Mengubah 'usersa' menjadi 'users'
         String sql = "SELECT * FROM users WHERE username = 'admin' AND password = ?";
