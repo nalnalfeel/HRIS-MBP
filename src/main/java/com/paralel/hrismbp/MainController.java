@@ -735,6 +735,8 @@ public class MainController {
             headerStyle.setFont(headerFont);
             headerStyle.setAlignment(HorizontalAlignment.LEFT);
             headerStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+            headerStyle.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());
+            headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
             setBorders(headerStyle);
 
             CellStyle leftStyle = workbook.createCellStyle();

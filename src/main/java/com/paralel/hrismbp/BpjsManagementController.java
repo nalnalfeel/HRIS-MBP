@@ -355,14 +355,40 @@ public class BpjsManagementController {
         });
     }
 
-    private VBox createSummaryCard(String title, Label lblVal, String colorHex) {
+    private VBox createSummaryCard(String title, Label lblVal, String accentColorHex) {
         Label lblT = new Label(title);
-        lblT.setStyle("-fx-font-size: 11px; -fx-text-fill: #718096;");
-        lblVal.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: " + colorHex + ";");
-        VBox card = new VBox(4, lblT, lblVal);
-        card.setStyle("-fx-background-color: #f7fafc; -fx-border-color: #e2e8f0; -fx-border-radius: 6; -fx-background-radius: 6;");
-        card.setPadding(new Insets(10, 20, 10, 20));
+        lblT.setStyle("-fx-font-size: 11px; -fx-text-fill: #64748b; -fx-font-weight: bold;");
+
+        lblVal.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #0f172a;");
+
+        // Indicator Line Accent
+        Region indicator = new Region();
+        indicator.setPrefHeight(3);
+        indicator.setStyle("-fx-background-color: " + accentColorHex + "; -fx-background-radius: 2px;");
+
+        VBox card = new VBox(6, lblT, lblVal, indicator);
+        card.setStyle("-fx-background-color: #ffffff; " +
+                "-fx-border-color: #e2e8f0; " +
+                "-fx-border-radius: 8px; " +
+                "-fx-background-radius: 8px; " +
+                "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.03), 10, 0, 0, 4);");
+        card.setPadding(new Insets(12, 18, 12, 18));
+        card.setMinWidth(180);
         return card;
+    }
+
+    private void setupTableEmptyState() {
+        VBox emptyState = new VBox(10);
+        emptyState.setAlignment(Pos.CENTER);
+
+        Label lblEmpty = new Label("Belum ada data BPJS yang dimuat");
+        lblEmpty.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #94a3b8;");
+
+        Label lblSub = new Label("Klik '+ Baris Baru' atau 'Import Excel' untuk mulai mengolah data.");
+        lblSub.setStyle("-fx-font-size: 11px; -fx-text-fill: #cbd5e1;");
+
+        emptyState.getChildren().addAll(lblEmpty, lblSub);
+        tableBpjs.setPlaceholder(emptyState);
     }
 
     private void updateSummary() {
@@ -421,6 +447,8 @@ public class BpjsManagementController {
         });
     }
 
+
+
     private void handleExportExcelCustom(String company, String unit, String bulan, String npp) {
         String safeFileName = "PERHITUNGAN_BPJSTK_" + unit.replaceAll("[^a-zA-Z0-9.-]", "_") + "_" + bulan.replaceAll(" ", "_") + ".xlsx";
 
@@ -429,6 +457,42 @@ public class BpjsManagementController {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Workbook (*.xlsx)", "*.xlsx"));
         fileChooser.setInitialFileName(safeFileName);
         File file = fileChooser.showSaveDialog(tableBpjs.getScene().getWindow());
+
+        // Dialog Loading
+        Dialog<Void> loadingDialog = new Dialog<>();
+        loadingDialog.setTitle("Memproses Export");
+
+        ProgressIndicator progress = new ProgressIndicator();
+        Label lblStatus = new Label("Sedang membuat dokumen Excel...");
+
+        VBox content = new VBox(15, progress, lblStatus);
+        content.setAlignment(Pos.CENTER);
+        content.setPadding(new Insets(25));
+
+        loadingDialog.getDialogPane().setContent(content);
+        loadingDialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+
+        // Task Background
+        /*javafx.concurrent.Task<Void> exportTask = new javafx.concurrent.Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                // Panggil logika export excel kustom Anda di sini
+                handleExportExcelCustomLogic(company, unit, bulan, npp, saveFile);
+                return null;
+            }
+        };
+*/
+        /*exportTask.setOnFailed(e -> {
+            loadingDialog.close();
+            showAlert(Alert.AlertType.ERROR, "Error Export", "Gagal menyimpan file: " + exportTask.getException().getMessage());
+        });
+
+        // Jalankan di thread terpisah
+        Thread thread = new Thread(exportTask);
+        thread.setDaemon(true);
+        thread.start();
+
+        loadingDialog.showAndWait();*/
 
         if (file == null) return;
 
@@ -468,9 +532,13 @@ public class BpjsManagementController {
             headerStyle.setBorderLeft(BorderStyle.THIN);
             headerStyle.setBorderRight(BorderStyle.THIN);
             headerStyle.setWrapText(true);
+            headerStyle.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());
+            headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
             Font headerFont = workbook.createFont();
             headerFont.setBold(true);
             headerStyle.setFont(headerFont);
+
+
 
             Row r5 = sheet.createRow(5);
             Row r6 = sheet.createRow(6);
@@ -663,7 +731,10 @@ public class BpjsManagementController {
                 com.itextpdf.text.pdf.PdfPCell cell = new com.itextpdf.text.pdf.PdfPCell(new com.itextpdf.text.Phrase(header, headerFont));
                 cell.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
                 cell.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_MIDDLE);
-                cell.setBackgroundColor(com.itextpdf.text.BaseColor.LIGHT_GRAY);
+
+                // UBAH BARIS INI (Gunakan kode RGB 144, 238, 144 untuk Hijau Muda):
+                cell.setBackgroundColor(new com.itextpdf.text.BaseColor(144, 238, 144));
+
                 cell.setPadding(4);
                 table.addCell(cell);
             }
@@ -717,7 +788,7 @@ public class BpjsManagementController {
             com.itextpdf.text.pdf.PdfPCell footerLabelCell = new com.itextpdf.text.pdf.PdfPCell(new com.itextpdf.text.Phrase("JUMLAH", headerFont));
             footerLabelCell.setColspan(3); // Merge untuk kolom NO, CABANG, dan NAMA
             footerLabelCell.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
-            footerLabelCell.setBackgroundColor(com.itextpdf.text.BaseColor.LIGHT_GRAY);
+            footerLabelCell.setBackgroundColor(new com.itextpdf.text.BaseColor(144, 238, 144));
             table.addCell(footerLabelCell);
 
             table.addCell(new com.itextpdf.text.pdf.PdfPCell(new com.itextpdf.text.Phrase(fmt.format(sumGapok), headerFont)));
