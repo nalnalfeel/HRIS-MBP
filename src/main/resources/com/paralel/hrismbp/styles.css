@@ -1,0 +1,110 @@
+/* src/main/resources/com/paralel/hrismbp/styles.css */
+
+.root {
+    -fx-font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    -fx-base: #f8fafc;
+    -fx-background-color: #f1f5f9;
+}
+
+/* === PANEL CONTAINER === */
+.card-panel {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(148, 163, 184, 0.15), 10, 0, 0, 4);
+}
+
+.header-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0f172a;
+}
+
+.field-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #475569;
+}
+
+/* === INPUT CONTROL STYLING === */
+.text-field, .text-area, .combo-box, .date-picker {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 6px 10px;
+    -fx-font-size: 13px;
+    -fx-text-fill: #1e293b;
+    /* Efek Fokus Native JavaFX (Menggantikan :focused) */
+    -fx-focus-color: #3b82f6;
+    -fx-faint-focus-color: rgba(59, 130, 246, 0.25);
+}
+
+.text-field:hover, .text-area:hover, .combo-box:hover, .date-picker:hover {
+    -fx-border-color: #94a3b8;
+}
+
+/* === BUTTON STYLING === */
+.button {
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-background-radius: 6px;
+    -fx-padding: 8px 14px;
+    -fx-cursor: hand;
+}
+
+.btn-primary { -fx-background-color: #2563eb; -fx-text-fill: #ffffff; }
+.btn-primary:hover { -fx-background-color: #1d4ed8; }
+
+.btn-warning { -fx-background-color: #f59e0b; -fx-text-fill: #ffffff; }
+.btn-warning:hover { -fx-background-color: #d97706; }
+
+.btn-danger { -fx-background-color: #ef4444; -fx-text-fill: #ffffff; }
+.btn-danger:hover { -fx-background-color: #dc2626; }
+
+.btn-dark-danger { -fx-background-color: #991b1b; -fx-text-fill: #ffffff; }
+.btn-dark-danger:hover { -fx-background-color: #7f1d1d; }
+
+.btn-secondary { -fx-background-color: #64748b; -fx-text-fill: #ffffff; }
+.btn-secondary:hover { -fx-background-color: #475569; }
+
+.btn-teal { -fx-background-color: #0d9488; -fx-text-fill: #ffffff; }
+.btn-teal:hover { -fx-background-color: #0f766e; }
+
+.btn-success { -fx-background-color: #16a34a; -fx-text-fill: #ffffff; }
+.btn-success:hover { -fx-background-color: #15803d; }
+
+/* === TABLEVIEW MODERNIZATION === */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    /* Mengatur warna baris bergantian (selang-seling) & warna seleksi secara native */
+    -fx-control-inner-background: #ffffff;
+    -fx-control-inner-background-alt: #f8fafc;
+    -fx-selection-bar: #e0f2fe;
+    -fx-selection-bar-non-focused: #f1f5f9;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: transparent transparent #e2e8f0 transparent;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-size: 38px;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #475569;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #f1f5f9;
+}

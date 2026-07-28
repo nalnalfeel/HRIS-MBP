@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.paralel.hrismbp.MainController" prefHeight="760.0" prefWidth="1280.0">
+    <padding>
+        <Insets top="15" right="15" bottom="15" left="15"/>
+    </padding>
+
+    <!-- PANEL KIRI: FORM INPUT KARYAWAN -->
+    <left>
+        <VBox prefWidth="420.0" styleClass="card-panel">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <VBox spacing="10.0">
+                <Label text="Form Data Karyawan" styleClass="header-label"/>
+
+                <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" prefHeight="580.0">
+                    <VBox spacing="8.0">
+                        <padding>
+                            <Insets right="5"/>
+                        </padding>
+                        <Label text="No. ID Karyawan (Internal):" styleClass="field-label"/>
+                        <TextField fx:id="txtEmployeeId" promptText="misal: ID-MBP-001"/>
+
+                        <Label text="NIK / No. KTP:" styleClass="field-label"/>
+                        <TextField fx:id="txtNik" promptText="16 Digit No. KTP"/>
+
+                        <Label text="No. Kartu Keluarga (KK):" styleClass="field-label"/>
+                        <TextField fx:id="txtFamilyCardNumber" promptText="16 Digit No. KK"/>
+
+                        <Label text="Nama Lengkap:" styleClass="field-label"/>
+                        <TextField fx:id="txtFullName" promptText="Sesuai KTP"/>
+
+                        <Label text="Nama Project:" styleClass="field-label"/>
+                        <ComboBox fx:id="cbProjectName" maxWidth="Infinity" promptText="Pilih / Ketik Nama Project" editable="true"/>
+
+                        <!-- [BARU] Tambahkan 2 baris ini di atas Tanggal Lahir -->
+                        <Label text="Tempat Lahir:" styleClass="field-label"/>
+                        <TextField fx:id="txtBirthPlace" promptText="Contoh: Jakarta"/>
+
+                        <Label text="Tanggal Lahir:" styleClass="field-label"/>
+                        <TextField fx:id="txtBirthDate" promptText="Contoh: 20 Februari 1999"/>
+
+                        <Label text="Jenis Kelamin:" styleClass="field-label"/>
+                        <ComboBox fx:id="cbGender" maxWidth="Infinity" promptText="Pilih Jenis Kelamin"/>
+
+                        <Label text="Alamat Tempat Tinggal (KTP):" styleClass="field-label"/>
+                        <TextArea fx:id="txtAddress" prefRowCount="2" promptText="Alamat lengkap..."/>
+
+                        <Label text="No. Telepon / WhatsApp:" styleClass="field-label"/>
+                        <TextField fx:id="txtPhone" promptText="08123456789"/>
+
+                        <Label text="Pendidikan Terakhir:" styleClass="field-label"/>
+                        <ComboBox fx:id="cbEducation" maxWidth="Infinity" promptText="Pilih Jenjang"/>
+
+                        <Label text="No. Rekening Bank:" styleClass="field-label"/>
+                        <TextField fx:id="txtBankAccount" promptText="BCA / Mandiri / dll + No. Rek"/>
+
+                        <Label text="No. BPJS Ketenagakerjaan:" styleClass="field-label"/>
+                        <TextField fx:id="txtBpjsTk" promptText="11 Digit No. BPJS TK"/>
+
+                        <Label text="No. BPJS Kesehatan:" styleClass="field-label"/>
+                        <TextField fx:id="txtBpjsKesehatan" promptText="13 Digit No. BPJS Kes"/>
+
+                        <Label text="Gaji (Rp):" styleClass="field-label"/>
+                        <TextField fx:id="txtSalary" promptText="0.00"/>
+                    </VBox>
+                </ScrollPane>
+
+                <Separator style="-fx-padding: 5 0 5 0;"/>
+
+                <!-- TOMBOL AKSI CRUD -->
+                <VBox spacing="8.0">
+                    <HBox spacing="8.0">
+                        <Button text="Simpan" onAction="#handleSave" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="btn-primary"/>
+                        <Button text="Update" onAction="#handleUpdate" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="btn-warning"/>
+                        <Button text="Clear" onAction="#clearForm" prefWidth="75.0" styleClass="btn-secondary"/>
+                    </HBox>
+                    <HBox spacing="8.0">
+                        <Button text="Hapus Single" onAction="#handleDelete" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="btn-danger"/>
+                        <Button text="Hapus Terpilih" onAction="#handleBulkDelete" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="btn-dark-danger"/>
+                    </HBox>
+                    <HBox spacing="8.0">
+                        <Button text="Import Excel" onAction="#handleImportCsv" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="btn-teal"/>
+                        <Button text="Export Excel (.xlsx)" onAction="#handleExportExcel" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="btn-success"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- PANEL TENGAH / KANAN: TABEL KARYAWAN & BAR BAWAH -->
+    <center>
+        <VBox spacing="12.0">
+            <BorderPane.margin>
+                <Insets left="15.0"/>
+            </BorderPane.margin>
+
+            <!-- BAR PENCARIAN -->
+            <HBox spacing="12.0" alignment="CENTER_LEFT" styleClass="card-panel" style="-fx-padding: 10px 15px;">
+                <Label text="Cari Karyawan / Project:" styleClass="field-label"/>
+                <TextField fx:id="txtSearch" promptText="Ketik NIK, Nama, atau Project..." HBox.hgrow="ALWAYS"/>
+                <Button text="Modul BPJS Multi-Unit" onAction="#handleOpenBpjsMultiUnit" styleClass="btn-teal"/>
+            </HBox>
+
+            <!-- TABEL KARYAWAN -->
+            <TableView fx:id="tableEmployees" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colEmployeeId" text="ID" prefWidth="90.0" />
+                    <TableColumn fx:id="colNik" text="NIK" prefWidth="130.0" />
+                    <TableColumn fx:id="colFamilyCard" text="KK" prefWidth="130.0" />
+                    <TableColumn fx:id="colName" text="Nama" prefWidth="160.0" />
+                    <!-- [BARU] Tambahkan baris ini untuk menampilkan Tanggal Lahir di tabel -->
+                    <TableColumn fx:id="colBirthDate" text="Tgl Lahir" prefWidth="120.0" />
+                    <TableColumn fx:id="colAddress" text="Alamat" prefWidth="180.0" />
+                    <TableColumn fx:id="colProject" text="Project" prefWidth="130.0" />
+                    <TableColumn fx:id="colGender" text="Gender" prefWidth="80.0" />
+                    <TableColumn fx:id="colPhone" text="Telepon" prefWidth="110.0" />
+                    <TableColumn fx:id="colEducation" text="Pendidikan" prefWidth="90.0" />
+                    <TableColumn fx:id="colSalary" text="Gaji" prefWidth="120.0" />
+                    <TableColumn fx:id="colBpjsTk" text="BPJS-TK" prefWidth="100.0" />
+                    <TableColumn fx:id="colBpjsKes" text="BPJS-Kes" prefWidth="100.0" />
+                </columns>
+            </TableView>
+
+            <!-- BAR NAVIGASI BAWAH -->
+            <HBox spacing="10.0" alignment="CENTER_LEFT" styleClass="card-panel" style="-fx-padding: 10px 15px;">
+                <Button text="Kelola Pengingat" onAction="#handleManageReminders" styleClass="btn-teal"/>
+                <Button text="Sakit &amp; Cuti" onAction="#handleManageLongLeaves" styleClass="btn-warning"/>
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <HBox spacing="6.0" alignment="CENTER">
+                    <Label fx:id="lblLanguage" text="Bahasa:" styleClass="field-label"/>
+                    <ComboBox fx:id="cbLanguage" prefWidth="140.0"/>
+                </HBox>
+
+                <Button text="Ubah Password" onAction="#handleChangePassword" styleClass="btn-secondary"/>
+                <Button text="Log Out" onAction="#handleLogout" styleClass="btn-danger"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>
