@@ -9,4 +9,6 @@ module com.paralel.hrismbp {
 
     opens com.paralel.hrismbp to javafx.fxml, javafx.base;
     exports com.paralel.hrismbp;
+    exports com.paralel.launcher;
+    opens com.paralel.launcher to javafx.base, javafx.fxml;
 }

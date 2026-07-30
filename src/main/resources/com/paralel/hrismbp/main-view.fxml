@@ -112,15 +112,15 @@
                     <TableColumn fx:id="colEmployeeId" text="ID" prefWidth="90.0" />
                     <TableColumn fx:id="colNik" text="NIK" prefWidth="130.0" />
                     <TableColumn fx:id="colFamilyCard" text="KK" prefWidth="130.0" />
-                    <TableColumn fx:id="colName" text="Nama" prefWidth="160.0" />
+                    <TableColumn fx:id="colName" text="Nama" prefWidth="200.0" />
                     <!-- [BARU] Tambahkan baris ini untuk menampilkan Tanggal Lahir di tabel -->
                     <TableColumn fx:id="colBirthDate" text="Tgl Lahir" prefWidth="120.0" />
-                    <TableColumn fx:id="colAddress" text="Alamat" prefWidth="180.0" />
+                    <TableColumn fx:id="colAddress" text="Alamat" prefWidth="300.0" />
                     <TableColumn fx:id="colProject" text="Project" prefWidth="130.0" />
                     <TableColumn fx:id="colGender" text="Gender" prefWidth="80.0" />
                     <TableColumn fx:id="colPhone" text="Telepon" prefWidth="110.0" />
                     <TableColumn fx:id="colEducation" text="Pendidikan" prefWidth="90.0" />
-                    <TableColumn fx:id="colSalary" text="Gaji" prefWidth="120.0" />
+                    <TableColumn fx:id="colSalary" text="Gaji" prefWidth="150.0" />
                     <TableColumn fx:id="colBpjsTk" text="BPJS-TK" prefWidth="100.0" />
                     <TableColumn fx:id="colBpjsKes" text="BPJS-Kes" prefWidth="100.0" />
                 </columns>

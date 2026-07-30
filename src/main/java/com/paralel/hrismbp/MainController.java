@@ -208,6 +208,8 @@ public class MainController {
             });
         }
 
+        tableEmployees.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+
         // Aktifkan mode pilih banyak baris di TableView
         if (tableEmployees != null) {
             tableEmployees.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);

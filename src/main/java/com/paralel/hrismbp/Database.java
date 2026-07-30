@@ -23,7 +23,7 @@ public class Database {
 
         // 4. Arahkan koneksi SQLite ke folder tersebut
         String url = "jdbc:sqlite:" + dbDir + File.separator + "hris_data.db";
-        return DriverManager.getConnection(DB_URL);
+        return DriverManager.getConnection(url);
     }
 
     public static void initDatabase() {

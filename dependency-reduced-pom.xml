@@ -27,7 +27,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>com.paralel.hrismbp.MainApp</mainClass>
+                  <mainClass>com.paralel.launcher.Launcher</mainClass>
                 </transformer>
               </transformers>
             </configuration>
