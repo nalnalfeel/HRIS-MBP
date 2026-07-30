@@ -1,5 +1,6 @@
 package com.paralel.hrismbp;
 
+import java.io.File;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
@@ -8,6 +9,20 @@ public class Database {
     private static final String DB_URL = "jdbc:sqlite:hris_data.db";
 
     public static Connection connect() throws SQLException {
+        // 1. Ambil path ke folder Home user Windows (C:\Users\NamaUser)
+        String userHome = System.getProperty("user.home");
+
+        // 2. Buat folder khusus untuk aplikasi Anda di Documents atau AppData
+        String dbDir = userHome + File.separator + "HRIS-MBP";
+        File directory = new File(dbDir);
+
+        // 3. Buat foldernya jika belum ada
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        // 4. Arahkan koneksi SQLite ke folder tersebut
+        String url = "jdbc:sqlite:" + dbDir + File.separator + "hris_data.db";
         return DriverManager.getConnection(DB_URL);
     }
 
