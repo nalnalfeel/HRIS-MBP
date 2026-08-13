@@ -48,7 +48,7 @@
                         <ComboBox fx:id="cbGender" maxWidth="Infinity" promptText="Pilih Jenis Kelamin"/>
 
                         <Label text="Alamat Tempat Tinggal (KTP):" styleClass="field-label"/>
-                        <TextArea fx:id="txtAddress" prefRowCount="2" promptText="Alamat lengkap..."/>
+                        <TextArea fx:id="addressField" wrapText="true"/>
 
                         <Label text="No. Telepon / WhatsApp:" styleClass="field-label"/>
                         <TextField fx:id="txtPhone" promptText="08123456789"/>
