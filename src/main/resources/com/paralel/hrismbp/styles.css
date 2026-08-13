@@ -45,12 +45,6 @@
     -fx-border-color: #94a3b8;
 }
 
-/* Efek saat sedang diketik (Focus) */
-/*.text-field:focused, .text-area:focused, .combo-box:focused, .date-picker:focused {
-    -fx-border-color: #3b82f6;
-    -fx-border-width: 1.5px;
-    -fx-background-insets: 0;
-}*/
 
 /* === BUTTON STYLING === */
 .button {
@@ -60,12 +54,6 @@
     -fx-padding: 8px 16px;
     -fx-cursor: hand;
 }
-
-/* Efek tactile (Ditekan) */
-/*.button:pressed {
-    -fx-translate-y: 1.5px; !* Tombol seolah turun ke bawah saat diklik *!
-    -fx-opacity: 0.85;
-}*/
 
 .btn-primary { -fx-background-color: #2563eb; -fx-text-fill: #ffffff; }
 .btn-primary:hover { -fx-background-color: #1d4ed8; -fx-effect: dropshadow(three-pass-box, rgba(37, 99, 235, 0.4), 8, 0, 0, 3); }
@@ -134,12 +122,6 @@
     -fx-background-color: #f1f5f9;
 }
 
-/* Mengubah warna teks pada baris yang di-klik agar kontras */
-/*.table-row-cell:selected .text {
-    -fx-fill: #0369a1;
-    -fx-font-weight: bold;
-}*/
-
 /* === SCROLLBAR MODERN (Ala MacOS / Web) === */
 .scroll-bar:horizontal, .scroll-bar:vertical {
     -fx-background-color: transparent;
@@ -168,4 +150,53 @@
 .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
     -fx-shape: " ";
     -fx-padding: 0;
+}
+
+/* --- KUSTOMISASI SCROLLBAR TABLEVIEW --- */
+
+/* 1. Mengubah ukuran ketebalan Scrollbar */
+.table-view .scroll-bar:vertical {
+    -fx-pref-width: 10px;
+}
+.table-view .scroll-bar:horizontal {
+    -fx-pref-height: 10px;
+}
+
+/* 2. Menyembunyikan Track (jalur latar belakang scrollbar) */
+.table-view .scroll-bar:vertical .track,
+.table-view .scroll-bar:horizontal .track,
+.table-view .scroll-bar:vertical .track-background,
+.table-view .scroll-bar:horizontal .track-background {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* 3. Mendesain Thumb (pegangan scrollbar yang bisa digeser) */
+.table-view .scroll-bar:vertical .thumb,
+.table-view .scroll-bar:horizontal .thumb {
+    -fx-background-color: #c1c9d2; /* Warna abu-abu kebiruan, sesuaikan jika perlu */
+    -fx-background-radius: 10px; /* Membuat ujungnya membulat seperti di gambar */
+}
+
+/* Memberikan efek hover saat kursor diarahkan ke scrollbar */
+.table-view .scroll-bar:vertical .thumb:hover,
+.table-view .scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: #a0aab5;
+}
+
+/* 4. Menghilangkan tombol panah atas/bawah/kiri/kanan */
+.table-view .scroll-bar .increment-button,
+.table-view .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+.table-view .scroll-bar .increment-arrow,
+.table-view .scroll-bar .decrement-arrow {
+    -fx-shape: " "; /* Menghapus bentuk ikon panah */
+    -fx-padding: 0;
+}
+
+/* 5. Menghilangkan kotak abu-abu di pojok pertemuan scrollbar vertikal & horizontal */
+.table-view .corner {
+    -fx-background-color: transparent;
 }

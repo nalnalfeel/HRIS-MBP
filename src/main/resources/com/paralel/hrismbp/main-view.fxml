@@ -108,6 +108,11 @@
 
             <!-- TABEL KARYAWAN -->
             <TableView fx:id="tableEmployees" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
+
+                <columnResizePolicy>
+                    <TableView fx:constant="UNCONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+
                 <columns>
                     <TableColumn fx:id="colEmployeeId" text="ID" prefWidth="90.0" />
                     <TableColumn fx:id="colNik" text="NIK" prefWidth="130.0" />
