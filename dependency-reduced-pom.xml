@@ -4,7 +4,7 @@
   <groupId>com.paralel</groupId>
   <artifactId>HRIS-MBP</artifactId>
   <name>HRIS-MBP</name>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.2</version>
   <build>
     <plugins>
       <plugin>
