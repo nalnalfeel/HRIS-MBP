@@ -723,14 +723,15 @@ public class MainController {
         fileChooser.setTitle("Simpan Data Karyawan (Excel)");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Workbook (*.xlsx)", "*.xlsx"));
         fileChooser.setInitialFileName("Data_Karyawan_HRIS.xlsx");
-
         File file = fileChooser.showSaveDialog(txtNik.getScene().getWindow());
+
         if (file == null) return;
 
         try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("Data Karyawan");
             sheet.setDisplayGridlines(true);
 
+            // ... (Kode setup style header, border, alignment tetap sama) ...
             CellStyle headerStyle = workbook.createCellStyle();
             Font headerFont = workbook.createFont();
             headerFont.setBold(true);
@@ -778,9 +779,11 @@ public class MainController {
             }
 
             int rowIndex = 1;
-            for (Employee emp : employeeList) {
-                Row row = sheet.createRow(rowIndex++);
 
+            // ---> PERUBAHAN ADA DI BARIS INI <---
+            // Ganti 'employeeList' menjadi 'tableEmployees.getItems()' agar hanya mengekspor data yang terfilter
+            for (Employee emp : tableEmployees.getItems()) {
+                Row row = sheet.createRow(rowIndex++);
                 createCell(row, 0, emp.employeeId(), textFormatStyle);
                 createCell(row, 1, emp.nik(), textFormatStyle);
                 createCell(row, 2, emp.familyCardNumber(), textFormatStyle);
@@ -794,7 +797,6 @@ public class MainController {
                 createCell(row, 10, emp.bankAccount(), textFormatStyle);
                 createCell(row, 11, emp.bpjsTk(), textFormatStyle);
                 createCell(row, 12, emp.bpjsKesehatan(), textFormatStyle);
-
                 Cell salaryCell = row.createCell(13);
                 salaryCell.setCellValue(emp.salary());
                 salaryCell.setCellStyle(currencyStyle);
